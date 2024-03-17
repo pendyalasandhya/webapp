@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+        .transaction {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        
+        .transaction p {
+            margin: 5px 0;
+        }
+        
+        .delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Money Tracker</h1>
+        <form id="transaction-form">
+            <input type="date" id="date" required>
+            <input type="text" id="description" placeholder="Description" required>
+            <input type="text" id="amount" placeholder="Amount" required>
+            <input type="submit" value="Add">
+        </form>
+        <div id="transactions"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('transaction-form');
+        const transactionsContainer = document.getElementById('transactions');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const date = document.getElementById('date').value;
+            const description = document.getElementById('description').value;
+            const amount = document.getElementById('amount').value;
+
+            const transactionHTML = `
+                <div class="transaction">
+                    <p>Date: ${date}</p>
+                    <p>Description:${description}</p>
+                    <p>Amount: $${amount}</p>
+                    <button class="delete-btn" onclick="deleteTransaction(this)">Delete</button>
+                </div>
+            `;
+
+            transactionsContainer.insertAdjacentHTML('beforeend', transactionHTML);
+
+            form.reset();
+        });
+
+        function deleteTransaction(transaction) {
+            transaction.parentElement.remove();
+        }
+    </script>
+</body>
+</html>
